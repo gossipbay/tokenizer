@@ -14,6 +14,7 @@ pos = POS(DATA)
 ner = NER(DATA)
 app = Flask(__name__)
 
+
 @app.route('/tagger', methods=['POST'])
 def tagger():
     sentences = request.json["raw"]
@@ -25,7 +26,7 @@ def tagger():
         words = []
         entities = {}
         for w, p in zip(ws_list[i], pos_list[i]):
-            words.append({ "w": w, "p": p })
+            words.append({"w": w, "p": p})
         for entity in entity_list[i]:
             kind = entity[2]
             val = entity[3]
@@ -33,5 +34,5 @@ def tagger():
                 entities[kind].append(val)
             else:
                 entities[kind] = [val]
-        result.append({ "words": words, "entities": entities })
-    return { "result": result }
+        result.append({"words": words, "entities": entities})
+    return {"result": result}
